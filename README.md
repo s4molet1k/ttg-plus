@@ -1,0 +1,4 @@
+# ttg-plus
+Tactical Tool Game challenges players to defend fortresses under siege. With a wide variety of traps, abilitys and weapons to choose from, Tactical Tool Game dares players to find the best ways to hack, launch, flatten, gibletize, attacker team. Tactical Tool Game features a vibrant look, addictive gameplay, and tons different ways to defend your base!
+The game is meant for pretty low player counts: 1v1, 2v2, 3v3, (ideally 2v2 or 3v3). Anything above that doesn't play very well; it becomes quite chaotic. Because the game is all about prediction and counter picking, at 4v4+ the game becomes unfun because of teams getting way too many tools to feasibly make generalized judgments about.
+TTG Plus is a revival of original tactical tool game, with fixes and some additions to gameplay of the gamemode.
