@@ -63,7 +63,28 @@ function NextRound()
 		end
 	end
 
-	
+local redscore = team.GetScore(TEAM_RED)
+
+if redscore > 2 then
+	for i, ply in ipairs(player.GetAll()) do
+		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
+	end
+	RunConsoleCommand("ttg_restart")
+
+
+end
+local bluescore = team.GetScore(TEAM_BLUE)
+
+if bluescore > 2 then
+	for i, ply in ipairs(player.GetAll()) do
+		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
+	end
+	RunConsoleCommand("ttg_restart")
+
+
+end
+
+
 	//set the zone the teams are vying for control over to be at one of the bomb sites of the de_ map
 	ChooseAttackSite()
 	
@@ -179,8 +200,7 @@ end
 
 function SetupPhase()
 	G_CurrentPhase = "Setup"
-	
-	--close out of all the buying phase menus
+
 	Close_BuyingMenus()
 	
 	
@@ -363,6 +383,7 @@ end
 
 
 function CapturedByAttackers()
+if G_WinAlreadyTriggered == true then return end
 	G_CaptureTimeMoving = false
 	G_CurCaptureMode = "none"
 	End_CaptureCheck()
@@ -374,15 +395,17 @@ function CapturedByAttackers()
 		attackers = TEAM_BLUE
 	end
 	
-	InitializeGCTime(1, NextRound)
+	InitializeGCTime(3, NextRound)
 	if attackers == TEAM_RED then
 		team.AddScore(TEAM_RED, 1)
+		G_WinAlreadyTriggered = true
 		for i, ply in ipairs( player.GetAll() ) do
 			ply:ChatPrint("Team Red wins the round by capping!" )
 		end
 	end
 	if attackers == TEAM_BLUE then
 		team.AddScore(TEAM_BLUE, 1)
+		G_WinAlreadyTriggered = true
 		for i, ply in ipairs( player.GetAll() ) do
 			ply:ChatPrint("Team Blue wins the round by capping!" )
 		end
@@ -398,7 +421,7 @@ end
 
 local winners = nil
 hook.Add( "PlayerDeath", "GlobalDeathMessage", function( victim, inflictor, attacker )
-
+if G_WinAlreadyTriggered == true then return end
 	if victim:Team() == TEAM_RED then
         for k, v in pairs(team.GetPlayers(TEAM_RED)) do
             if v:Alive() then
@@ -407,10 +430,9 @@ hook.Add( "PlayerDeath", "GlobalDeathMessage", function( victim, inflictor, atta
             end
         end
         winners = TEAM_BLUE
-		if G_WinAlreadyTriggered == true then return end
 		G_WinAlreadyTriggered = true
 		team.AddScore(TEAM_BLUE, 1)
-		InitializeGCTime(1, NextRound)
+		InitializeGCTime(3, NextRound)
 
 			print("TEAM BLUE WINS!")
 
@@ -424,7 +446,7 @@ hook.Add( "PlayerDeath", "GlobalDeathMessage", function( victim, inflictor, atta
 		end
 
 
-
+if G_WinAlreadyTriggered == true then return end
     elseif victim:Team() == TEAM_BLUE then
         for k, v in pairs(team.GetPlayers(TEAM_BLUE)) do
             if v:Alive() then
@@ -433,10 +455,10 @@ hook.Add( "PlayerDeath", "GlobalDeathMessage", function( victim, inflictor, atta
         end
 		winners = TEAM_RED
 
-		if G_WinAlreadyTriggered == true then return end
+
 		G_WinAlreadyTriggered = true
 		team.AddScore(TEAM_RED, 1)
-		InitializeGCTime(1, NextRound)
+		InitializeGCTime(3, NextRound)
 
 			print("TEAM RED WINS!")
 		for i, ply in ipairs( player.GetAll() ) do
@@ -449,6 +471,7 @@ hook.Add( "PlayerDeath", "GlobalDeathMessage", function( victim, inflictor, atta
 	end
 
 end)
+
 hook.Add("PlayerDeath", "spectateOnDeath", function(victim, inflictor, attacker)
     if victim:IsValid() and victim:IsPlayer() then
         timer.Simple(0, function()
@@ -602,7 +625,7 @@ function WinningPhase(winners)
 			--makes it so it wont play the announcer counting down sounds
 			SetGlobalBool("CL_PlayTimerCountSounds", false)
 			
-			InitializeGCTime(1, NextRound)
+			InitializeGCTime(3, NextRound)
 			return
 		end
 	end
@@ -645,7 +668,7 @@ function WinningPhase(winners)
 	
 	SetGlobalString("CL_CurPhase", "Winning")
 	
-	InitializeGCTime(1, NextRound)
+	InitializeGCTime(3, NextRound)
 end
 
 
@@ -670,7 +693,10 @@ function GameEnd(winners)
 	
 	SetGlobalString("CL_CurPhase", "GameEnd")
 	
-	InitializeGCTime(1, GameRestart)
+	InitializeGCTime(5, GameRestart)
+
 
 end
 
+hook.Add( "HUDPaint", "HUDPaint_DrawABox", function()
+end)

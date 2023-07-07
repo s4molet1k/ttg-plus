@@ -8,7 +8,7 @@ function ShowTeamMenu()
 	local panel_height = 400
  
 	local DermaPanel = vgui.Create( "DFrame" )
-	DermaPanel:SetPos( (ScrW()/2)-panel_width/2, 400 )
+	DermaPanel:SetPos( (ScrW()/2)-panel_width/2, 300 )
 	DermaPanel:SetSize( panel_width, panel_height )
 	DermaPanel:SetTitle( "Set Up Teams" ) // Name of Fram
 	DermaPanel:SetVisible( true )

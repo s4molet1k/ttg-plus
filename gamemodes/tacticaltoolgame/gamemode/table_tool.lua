@@ -243,7 +243,7 @@ shoot_sound = Sound("Weapon_Mortar.Single"),
 reload_sound = Sound("weapons/smg_worldreload.wav")	,
 heal_amount = 1,
 //heal_amount_aoe = 30,
-//radius = 256,
+
 }
 ,
 
@@ -594,13 +594,14 @@ tool_repairstick =
 name = "tool_repairstick",
 print_name = "Repair Stick",
 class = "gun",
-rate_of_fire = 1.2,
+rate_of_fire = 1.5,
 automatic = true,
 heal_amount_player = 3,
 heal_amount_building = 15,
 v_model = "models/weapons/v_stunbaton.mdl",
 w_model = "models/weapons/w_stunbaton.mdl",
 heal_sound = Sound("weapons/physcannon/energy_bounce1.wav"),
+upgrades_hp = true,
 }
 ,
 

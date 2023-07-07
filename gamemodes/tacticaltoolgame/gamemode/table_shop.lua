@@ -335,7 +335,7 @@ name = "purchase_repairstick",
 print_name = "Repair Stick",
 class = "gun",
 tool_name = "tool_repairstick",
-description = "Repairs the buildings you whack for 15 hp per hit.",
+description = "Repairs the buildings you whack for 15 hp per hit.\nBuying multiple upgrades rate of fire.",
 bind_primary = "Repair nearby building",
 }
 ,

@@ -97,9 +97,9 @@ concommand.Add( "ttg_vote", fVote )
 
 function fRestart( player, command, arguments )
 	if not player:IsAdmin() then return end
-	timer.Simple(0.3, function()
+
 	GameRestart()
-end)
+
 end
 concommand.Add( "ttg_restart", fRestart )
 

@@ -23,13 +23,13 @@ local function CaptureTimeHud()
 		local barwidth = 200-((curcaptime/fulltime)*200)
 		
 		//dark grey background box
-		draw.RoundedBox(8, ScrW()/2 - 110, 100, 220, 65, Color(50,50,50,255))	
+		draw.RoundedBox(8, ScrW()/2 - 110, 120, 220, 65, Color(50,50,50,255))	
 		
 		//the grey box behind the capture time display
-		draw.RoundedBox(8, ScrW()/2 - 100, 110, 200, 45, Color(70,70,70,255))
+		draw.RoundedBox(8, ScrW()/2 - 100, 130, 200, 45, Color(70,70,70,255))
 		
 		//moving bar representing how much time is left
-		draw.RoundedBox(8, ScrW()/2 - 100, 110, barwidth, 45, white)
+		draw.RoundedBox(8, ScrW()/2 - 100, 130, barwidth, 45, white)
 	end
 	
 	

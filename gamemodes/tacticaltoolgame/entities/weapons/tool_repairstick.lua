@@ -163,7 +163,8 @@ function SWEP:SwingMelee( )
 		return false
 	end
 
-	
+
+
 
 	---First check if it directly hit anything
 	local tr_line = util.TraceLine( {

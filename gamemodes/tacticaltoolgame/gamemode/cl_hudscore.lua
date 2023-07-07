@@ -54,33 +54,26 @@ local function ScoreHud()
 		total_rounds = 0
 	end
 	draw.SimpleTextOutlined("ROUND: " .. round, "TheDefaultSettings2", ScrW()/2, 85, Color(255, 255, 255, 255), 1, 1, 1, Color(0, 0, 0, 255))
-	
+
 	if round > GetTotalRounds() then
 		draw.SimpleTextOutlined("TIE BREAKER", "TheDefaultSettings5", ScrW()/2 + 0.5, 108, Color(255, 255, 100, 255), 1, 1, 1, Color(0, 0, 0, 255), TEXT_ALIGN_CENTER)
 	end
 	
 	function fVote( ply, command, arguments )
 	end
-	
-	if round > 5 then	
-		RunConsoleCommand ("ttg_restart")	
-			for i, ply in ipairs(player.GetAll()) do
-				ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
-			end
-	end
+
 	if redscore > 2 then
-		RunConsoleCommand("ttg_restart")
 		for i, ply in ipairs(player.GetAll()) do
 			ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
 		end
 	end
 	if bluescore > 2 then
-		
-		RunConsoleCommand("ttg_restart")
 		for i, ply in ipairs(player.GetAll()) do
 			ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
 		end
 	end
+
+
 end
 
 	
