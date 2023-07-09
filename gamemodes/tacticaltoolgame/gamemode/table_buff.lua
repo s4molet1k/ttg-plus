@@ -77,7 +77,7 @@ display = "Aviating!",
 display_head = "Aviaiting",
 is_nerf = false,
 color = Color(50, 61, 160),
-gravity = 0.16,
+gravity = 0.32,
 }
 ,
 
@@ -410,7 +410,7 @@ function TTGPlayer:BuffEffect_Stun( x )
 	if x == true then
 		--freeze the player in place and make them invulnerable
 		self:Freeze( true )
-		self:TTG_Invuln( true )
+		self:TTG_Invuln( false )
 	else
 		self:Freeze( false )
 		self:TTG_Invuln( false )

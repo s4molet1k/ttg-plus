@@ -1,4 +1,4 @@
-local size = math.Clamp(7.5, 5, 15) * 0.11
+local size = math.Clamp(7.5, 5, 15) * 0.115
 local scale = (ScrW() >= 2560 and size + 0.1) or (ScrW() / 175 >= 6 and size + 0.1) or 0.8
 local CurTb = 0
 local CurSlt = 1

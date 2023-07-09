@@ -43,8 +43,4 @@ function ENT:DoAbility()
 		self:InitiateCooldown()
 		
 	end
-
-	
-	
-	
 end

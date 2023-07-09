@@ -48,7 +48,27 @@ function NextRound()
 		end
 	end
 
-	
+	local redscore = team.GetScore(TEAM_RED)
+	local bluescore = team.GetScore(TEAM_BLUE)
+
+if redscore > 2 then
+	for i, ply in ipairs(player.GetAll()) do
+		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
+	end
+	RunConsoleCommand("ttg_restart")
+
+
+end
+
+
+if bluescore > 2 then
+	for i, ply in ipairs(player.GetAll()) do
+		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
+	end
+	RunConsoleCommand("ttg_restart")
+
+
+end
 	--Checks if this will be a tie breaker round, randomly gives roles out
 	if G_CurRound == G_TotalRounds + 1 then
 		--Set the roles randomly for the first round
@@ -63,26 +83,6 @@ function NextRound()
 		end
 	end
 
-local redscore = team.GetScore(TEAM_RED)
-
-if redscore > 2 then
-	for i, ply in ipairs(player.GetAll()) do
-		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
-	end
-	RunConsoleCommand("ttg_restart")
-
-
-end
-local bluescore = team.GetScore(TEAM_BLUE)
-
-if bluescore > 2 then
-	for i, ply in ipairs(player.GetAll()) do
-		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
-	end
-	RunConsoleCommand("ttg_restart")
-
-
-end
 
 
 	//set the zone the teams are vying for control over to be at one of the bomb sites of the de_ map
@@ -117,6 +117,7 @@ end
 				v:TTG_Invuln( true )
 				//v:TTG_Freeze( true )
 			end	
+		
 		end
 	end
 	
@@ -202,8 +203,7 @@ function SetupPhase()
 	G_CurrentPhase = "Setup"
 
 	Close_BuyingMenus()
-	
-	
+
 
 	for k,v in pairs(player.GetAll()) do
 		
@@ -216,6 +216,9 @@ function SetupPhase()
 			v:SetBaseSpeed( PLAYER_BASE_SPEED_SETUP )
 			v:SetCrouchedWalkSpeed( PLAYER_BASE_CROUCHMULTIPLIER_SETUP )
 		end
+
+
+
 --check if any players are alive on one team and end the round if not
 local CaptureTime = nil
 --global var which says what mode the capture timer is in
@@ -267,7 +270,7 @@ function ChangeCapture()
 			end
 		end
 	end
-	
+
 	if G_CurCaptureMode == "none" then
 		if attacker_touching and not defender_touching then
 			InitializeCapture()
@@ -276,24 +279,28 @@ function ChangeCapture()
 	elseif G_CurCaptureMode == "capturing" then
 		if defender_touching and not attacker_touching then
 			G_CurCaptureMode = "reversing"
+
 		elseif defender_touching and attacker_touching then
 			G_CurCaptureMode = "stuck"
+
 		end
 		
 	elseif G_CurCaptureMode == "reversing" then
 		if attacker_touching and not defender_touching then
 			G_CurCaptureMode = "capturing"
+
 		elseif defender_touching and attacker_touching then
 			G_CurCaptureMode = "stuck"
+
 		end
 		
 	elseif G_CurCaptureMode == "stuck" then
 		if attacker_touching and not defender_touching then
 			G_CurCaptureMode = "capturing"
+
 		elseif defender_touching and not attacker_touching then
-			G_CurCaptureMode = "reversing"
+
 		end
-		
 	end
 end
 
@@ -400,14 +407,14 @@ if G_WinAlreadyTriggered == true then return end
 		team.AddScore(TEAM_RED, 1)
 		G_WinAlreadyTriggered = true
 		for i, ply in ipairs( player.GetAll() ) do
-			ply:ChatPrint("Team Red wins the round by capping!" )
+			ply:PrintMessage( HUD_PRINTCENTER,"Team Red wins the round by capping!" )
 		end
 	end
 	if attackers == TEAM_BLUE then
 		team.AddScore(TEAM_BLUE, 1)
 		G_WinAlreadyTriggered = true
 		for i, ply in ipairs( player.GetAll() ) do
-			ply:ChatPrint("Team Blue wins the round by capping!" )
+			ply:PrintMessage( HUD_PRINTCENTER,"Team Blue wins the round by capping!" )
 		end
 	end
 end
@@ -437,7 +444,7 @@ if G_WinAlreadyTriggered == true then return end
 			print("TEAM BLUE WINS!")
 
 			for i, ply in ipairs( player.GetAll() ) do
-				ply:ChatPrint("Team Blue wins the round!" )
+				ply:PrintMessage( HUD_PRINTCENTER,"Team Blue wins the round!" )
 
 			End_CaptureCheck()
 			TurnOffCapture()
@@ -462,7 +469,7 @@ if G_WinAlreadyTriggered == true then return end
 
 			print("TEAM RED WINS!")
 		for i, ply in ipairs( player.GetAll() ) do
-			ply:ChatPrint("Team Red wins the round!" )
+			ply:PrintMessage( HUD_PRINTCENTER,"Team Red wins the round!" )
 		
 		End_CaptureCheck()
 		TurnOffCapture()
@@ -509,7 +516,12 @@ end)
 							v:TTG_Invuln( true )
 							//v:TTG_Freeze( true )
 						end	
+					if GetTeamRole(v:Team()) == "Defending" then
+						for _, ply in ipairs( player.GetAll() ) do
+							ply:TTG_Invuln(true)
+						end
 					end
+				end
 				end
 
 
@@ -698,5 +710,3 @@ function GameEnd(winners)
 
 end
 
-hook.Add( "HUDPaint", "HUDPaint_DrawABox", function()
-end)
