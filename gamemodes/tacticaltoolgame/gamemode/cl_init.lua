@@ -532,18 +532,26 @@ function hud()
 /*---------------------------------------------------------
 	Bad Crosshair
 ---------------------------------------------------------*/
--- Создаем хук для функции HUDShouldDraw
+-- remove def crosshair
 hook.Add("HUDShouldDraw", "HideCrosshair", function(name)
-    -- Проверяем, является ли элемент прицелем (Crosshair)
     if name == "CHudCrosshair" then
-        -- Возвращаем false, чтобы скрыть прицел
         return false
     end
 end)
+-- add a new one
 draw.RoundedBox(7, ScrW()/2 - 4, ScrH()/2 - 2, 16, 14, Color( 0, 0, 0, 150 ) )
 draw.RoundedBox(8, ScrW()/2 + 1, ScrH()/2 + 2, 6, 6, Color( 255, 255, 255, 150 ) )
 	
-	
+
+--red death screen shit remover
+
+
+hook.Add( "HUDShouldDraw", "RemoveThatShit", function( name ) 
+    if ( name == "CHudDamageIndicator" ) then 
+       return false 
+    end
+end )
+
 /*---------------------------------------------------------
 	Buff Hud display stuff
 ---------------------------------------------------------*/

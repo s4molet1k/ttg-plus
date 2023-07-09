@@ -488,7 +488,7 @@ hook.Add("PlayerDeath", "spectateOnDeath", function(victim, inflictor, attacker)
     end
 end)
     -- Respawn all players
-	timer.Simple(30, function()
+	timer.Simple(500, function()
         for k, v in pairs(player.GetAll()) do
             if !v:Alive() then
 
