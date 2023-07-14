@@ -108,8 +108,13 @@
 				end	
 				
 				--give defending god mode so they cant be killed in setup phase later
+				if GetTeamRole(v:Team()) == "Defending" then
+					v:TTG_Invuln( true )
+					//v:TTG_Freeze( true )
+				end	
 			end
 		end
+		
 		
 		DefendersBuyPhase()
 		

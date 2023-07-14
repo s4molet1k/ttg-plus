@@ -83,7 +83,7 @@ name = "purchase_stuntrap",
 print_name = "Stun Trap",
 class = "item",
 tool_name = "tool_stuntrap",
-pack_amount = 1,
+pack_amount = 2,
 description = "Deploys an invisible trap which automatically stuns enemy players who walk into it for 5 seconds. \nStunned units become invulnerable for the duration. \n( invulnerable units can still be executed )",
 bind_primary = "Deploy stun trap",
 }

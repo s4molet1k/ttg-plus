@@ -314,25 +314,5 @@ end
 
 ]]--
 
-local redscore = team.GetScore(TEAM_RED)
-print("penis1: " .. redscore)
-if redscore > 2 then
-
-	GameRestart()
-	for i, ply in ipairs(player.GetAll()) do
-		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
-	end
-
-end
-local bluescore = team.GetScore(TEAM_BLUE)
-print("penis2: " .. bluescore)
-if bluescore > 2 then
-
-	GameRestart()
-	for i, ply in ipairs(player.GetAll()) do
-		ply:PrintMessage(HUD_PRINTCENTER, "The game has ended!" .. " ".. redscore .. " - " .. bluescore)
-	end
-
-end
 
 

@@ -121,7 +121,6 @@ function CloseAttackersDoors()
 		if ent:GetClass() == "func_brush" then
 			if ent:GetName() == BRUSH_DOOR_NAME then
 				ent:Fire( "Enable", 0, 0 )
-			
 			end
 		end
 	end

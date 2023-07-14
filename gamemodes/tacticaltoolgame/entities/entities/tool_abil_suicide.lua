@@ -47,12 +47,26 @@ function ENT:DoAbility()
 		end)
 		
 	elseif self.Step == 2 then
-		self.Cancel = true
+		self.Owner:EmitSound( self.Ref.sound_charge )
+		self.Cancel = false
 		self.Step = 1
-		self:InitiateCooldown()
 		
-	end
+		
 
+	timer.Simple( self.Ref.charge_time, function()
+		if not IsValid(self) then return end
+		if self.Cancel == true then 
+		self.Owner:StopSound( self.Ref.sound_charge )
+		self.Owner:EmitSound( self.Ref.sound_cancel )
+		return 
+		end
+		
+		self:Explode( )
+			
+		self:InitiateCooldown()
+
+	end)
+end
 end
 
 

@@ -275,7 +275,9 @@ hook.Add("HUDShouldDraw", "HUD hider", HUDShouldDraw)
 
  
  
- 
+function DrawCrosshair()
+
+end
 
 /*---------------------------------------------------------
 	Hud features
@@ -528,20 +530,19 @@ function hud()
 	
 
 	
-	
+
 /*---------------------------------------------------------
 	Bad Crosshair
 ---------------------------------------------------------*/
 -- remove def crosshair
-hook.Add("HUDShouldDraw", "HideCrosshair", function(name)
-    if name == "CHudCrosshair" then
-        return false
-    end
-end)
+
+
+
 -- add a new one
-draw.RoundedBox(7, ScrW()/2 - 4, ScrH()/2 - 2, 16, 14, Color( 0, 0, 0, 150 ) )
-draw.RoundedBox(8, ScrW()/2 + 1, ScrH()/2 + 2, 6, 6, Color( 255, 255, 255, 150 ) )
-	
+for k,v in pairs(player.GetAll()) do	
+	draw.RoundedBox(7, ScrW()/2 - 4, ScrH()/2 - 2, 16, 14, Color( 0, 0, 0, 150 ) )
+	draw.RoundedBox(8, ScrW()/2 + 1, ScrH()/2 + 2, 6, 6, Color( 255, 255, 255, 150 ) )
+end
 
 --red death screen shit remover
 
@@ -551,7 +552,8 @@ hook.Add( "HUDShouldDraw", "RemoveThatShit", function( name )
        return false 
     end
 end )
-
+	
+	
 /*---------------------------------------------------------
 	Buff Hud display stuff
 ---------------------------------------------------------*/

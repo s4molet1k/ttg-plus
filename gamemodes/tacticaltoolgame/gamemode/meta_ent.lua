@@ -187,16 +187,16 @@ end
 
 
 
--- function TTGEnt:AddSpawnDoorNoCollide()
--- 	--if the creator is not on attacker, this will not run
--- 	if GetTeamRole( self.Creator:Team() ) != "Attacking" then return end
+function TTGEnt:AddSpawnDoorNoCollide()
+	--if the creator is not on attacker, this will not run
+	if GetTeamRole( self.Creator:Team() ) != "Attacking" then return end
 
--- 	for k,ent in pairs(ents.GetAll()) do
--- 		if ent:GetClass() == "func_brush" and ent:GetName() == BRUSH_DOOR_NAME then
--- 			constraint.NoCollide( self, ent, 0, 0 )
--- 		end
--- 	end
--- end
+	for k,ent in pairs(ents.GetAll()) do
+		if ent:GetClass() == "func_brush" and ent:GetName() == BRUSH_DOOR_NAME then
+			constraint.NoCollide( self, ent, 0, 0 )
+		end
+	end
+end
 
 
 
