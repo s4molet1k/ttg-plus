@@ -8,21 +8,22 @@ local function TimeHud()
 	local function  TimerUpdate(num)
 		curgametime = num:ReadString()
 		
-		local dosounds = GetGlobalBool("CL_PlayTimerCountSounds")
-		if dosounds != true then return end
-		
-		if curgametime == "00:05" then
-			surface.PlaySound( "vo/announcer_begins_5sec.wav" )
-		elseif curgametime == "00:04" then
-			surface.PlaySound( "vo/announcer_begins_4sec.wav" )
-		elseif curgametime == "00:03" then
-			surface.PlaySound( "vo/announcer_begins_3sec.wav" )
-		elseif curgametime == "00:02" then
-			surface.PlaySound( "vo/announcer_begins_2sec.wav" )
-		elseif curgametime == "00:01" then
-			surface.PlaySound( "vo/announcer_begins_1sec.wav" )
-		end
-	end
+	-- 	local dosounds = GetGlobalBool("CL_PlayTimerCountSounds")
+	-- 	if dosounds != true then return end
+
+	-- 	if curgametime == "00:05" then
+	-- 		surface.PlaySound( "vo/announcer_begins_5sec.wav" )
+	-- 	elseif curgametime == "00:04" then
+	-- 		surface.PlaySound( "vo/announcer_begins_4sec.wav" )
+	-- 	elseif curgametime == "00:03" then
+	-- 		surface.PlaySound( "vo/announcer_begins_3sec.wav" )
+	-- 	elseif curgametime == "00:02" then
+	-- 		surface.PlaySound( "vo/announcer_begins_2sec.wav" )
+	-- 	elseif curgametime == "00:01" then
+	-- 		surface.PlaySound( "vo/announcer_begins_1sec.wav" )
+
+	-- end
+end
 	usermessage.Hook("TimerUpdate", TimerUpdate)
 	//draw.SimpleText(curgametime, "DermaLarge", 10, ScrH() - 100, Color(255,255,255,255))
 
@@ -52,7 +53,7 @@ local function TimeHud()
 			//surface.PlaySound( "Weapon_Pistol.Single" )
 			
 	
-			draw.SimpleText("OVERTIME","SmallerFont",(ScrW()/2)+200, 140,Color(255,255,255,255))
+			draw.SimpleText("OVERTIME","TheDefaultSettings3",(ScrW()/2)+200, 140,Color(255,255,255,255))
 		end
 end
 hook.Add("HUDPaint", "TimeHud", TimeHud)

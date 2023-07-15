@@ -91,7 +91,7 @@
 			
 				--spawn all players, except specs
 				v:Spawn()
-			
+				
 				--sets the default stuff for the player, speed, model, default_melee, etc
 				SetSpawnStuff( v )
 			
@@ -111,6 +111,7 @@
 				if GetTeamRole(v:Team()) == "Defending" then
 					v:TTG_Invuln( true )
 					//v:TTG_Freeze( true )
+					hook.Remove("KeyPress", "SpectatorKeyPress")
 				end	
 			end
 		end

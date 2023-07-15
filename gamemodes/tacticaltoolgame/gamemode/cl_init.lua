@@ -539,10 +539,8 @@ function hud()
 
 
 -- add a new one
-for k,v in pairs(player.GetAll()) do	
 	draw.RoundedBox(7, ScrW()/2 - 4, ScrH()/2 - 2, 16, 14, Color( 0, 0, 0, 150 ) )
 	draw.RoundedBox(8, ScrW()/2 + 1, ScrH()/2 + 2, 6, 6, Color( 255, 255, 255, 150 ) )
-end
 
 --red death screen shit remover
 

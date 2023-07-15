@@ -472,29 +472,86 @@ if G_WinAlreadyTriggered == true then return end
 	end
 
 end)
-
--- Функция, устанавливающая режим наблюдателя OBS_MODE_ROAMING
-hook.Add("PlayerDeath", "GiveSpectatorMode", function(victim, inflictor, attacker)
-	-- Проверяем, что игрок, вызвавший событие, является игроком
-	if IsValid(victim) and victim:IsPlayer() then
-	-- Устанавливаем режим наблюдателя
-	victim:StripWeapons() -- Удаляем оружие, чтобы игрок не мог стрелять в режиме наблюдателя
-	victim:Spectate(OBS_MODE_CHASE)
-	victim:UnLock()
+for k,v in pairs(player.GetAll()) do
+	if GetTeamRole(winners) == "Defending" then
+		if GetTeamRole(v:Team()) == "Defending" then
+			umsg.Start("Announcer_Success", v); umsg.End()
+		elseif GetTeamRole(v:Team()) == "Attacking" then
+			umsg.Start("Announcer_Failure", v); umsg.End()
+		end
+		
+	elseif GetTeamRole(winners) == "Attacking" then
+		if GetTeamRole(v:Team()) == "Defending" then
+			umsg.Start("Announcer_Failure", v); umsg.End()
+		elseif GetTeamRole(v:Team()) == "Attacking" then
+			umsg.Start("Announcer_Success", v); umsg.End()
+		end
+	end
 end
-	end)
+hook.Add("PlayerDeath", "spectateOnDeath", function(victim, inflictor, attacker)
+    if victim:IsValid() and victim:IsPlayer() then
+        Reset_PlyAbilities(victim)
+        hook.Add("KeyPress", "SpectatorKeyPress", function(ply, key)
+            if ply == victim and key == IN_ATTACK then
+ 
+                local players = player.GetAll()
 
+                for k, v in pairs(players) do
+                    if v == victim then table.remove(players, k) end
+                end
+
+                if #players > 0 then
+
+                    local currentTarget = ply:GetObserverTarget()
+
+                    if not IsValid(currentTarget) or not currentTarget:IsPlayer() or not table.HasValue(players, currentTarget) then
+                        currentTarget = players[1]
+                    else
+                        for i, player in ipairs(players) do
+                            if player == currentTarget then
+                                currentTarget = players[i + 1] or players[1]
+                                break
+                            end
+                        end
+                    end
+
+                    ply:Spectate(OBS_MODE_CHASE)
+                    ply:SpectateEntity(currentTarget)
+                end
+            end
+        end)
+    end
+end)
+
+hook.Add("PlayerSpawn", "removeSpectatorKeyPress", function(ply)
+    hook.Remove("KeyPress", "SpectatorKeyPress")
+end)
+-- hook.Add("PlayerDeath", "spectateOnDeath", function(victim, inflictor, attacker)
+
+-- victim:SpectateEntity (attacker)
+-- victim:Spectate(OBS_MODE_DEATHCAM)
+
+-- timer.Simple(0.75, function()
+-- if not IsValid(victim) or not IsValid(attacker) then return end
+-- victim: SetObserverMode(OBS_MODE_FREEZECAM)
+
+-- timer.Simple(1.25, function()
+-- if not IsValid(victim) or not IsValid(attacker) then return end
+-- victim: SetObserverMode(OBS_MODE_CHASE)
+-- end)
+-- end)
+-- end)
     -- Respawn all players
 	timer.Simple(99999999, function()
         for k, v in pairs(player.GetAll()) do
             if !v:Alive() then
-
+				
 				
 				for k,v in pairs(player.GetAll()) do	
 					if v:Team() != TEAM_SPEC then
 						-- take away all the players tools from the previous round
 						v:StripWeapons()
-					
+						
 						--make sure they arent in specate mode like they are when theyre dead
 						v:UnSpectate()
 
@@ -512,6 +569,7 @@ end
 						if GetTeamRole(v:Team()) == "Attacking" then
 							v:TTG_Invuln( true )
 							//v:TTG_Freeze( true )
+							hook.Remove("KeyPress", "SpectatorKeyPress")
 						end	
 					end
 				end
@@ -644,7 +702,7 @@ function WinningPhase(winners)
 	
 	--prints to all players telling them who won
 	for k,v in pairs(player.GetAll()) do
-		v:ChatPrint(ConvertToTeamName(winners) .. " wins the round!")
+		v:PrintMessage(HUD_PRINTCENTER, ConvertToTeamName(winners) .. " wins the round!")
 		//print( "this is the winning teams number to debug:", winners )
 		if GetTeamRole(winners) == "Defending" then
 			if GetTeamRole(v:Team()) == "Defending" then
